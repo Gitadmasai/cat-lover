@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            display: flex;
+            border: 1px solid black;
+        }
+
+        #box div{
+            display: flex;
+        }
+        #box div div{
+            display: flex;
+            flex-direction: column;
+        }
+        img{
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>cat page</h1>
+    <div id="box"></div>
+</body>
+</html>
+<script>
+   
+
+    function append(){
+        var data = JSON.parse(localStorage.getItem("catdata"))|| []
+ console.log(data)
+ var alldata = []
+ alldata.push(data)
+         alldata.forEach((e)=>{
+             var div=document.createElement("div")
+
+             var div1=document.createElement("div")
+             var div2=document.createElement("div")
+
+             var img=document.createElement("img")
+             img.src=e.url
+
+             var name=document.createElement("h1")
+             name.textContent=e.breeds[0].name
+
+             var dec=document.createElement("p")
+             dec.textContent=e.breeds[0].description
+
+             var temp=document.createElement("p")
+             temp.textContent=e.breeds[0].temperament
+
+             var life=document.createElement("h1")
+             life.textContent=e.breeds[0].life_span
+
+             var wike=document.createElement("p")
+             wike.textContent=e.breeds[0].wikipedia_url
+
+             var div3=document.createElement("div")
+             div3.append(name)
+
+             var div4=document.createElement("div")
+             div4.append(dec)
+
+             var div5=document.createElement("div")
+             div5.append(temp)
+
+             var div6=document.createElement("div")
+             div6.append(life)
+
+             var div7=document.createElement("div")
+             div7.append(wike)
+
+             div2.append(div3,div4,div5,div6,div7)
+
+             div1.append(img)
+
+             div.append(div1,div2)
+
+             box.append(div)
+        })
+    }
+    append();
+</script>

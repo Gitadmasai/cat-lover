@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            background-color: teal;
+            display: flex;
+            justify-content:space-evenly;
+            height: 50px;
+        }
+
+        #container div{
+            margin-top: 15px;
+            font-size: 30px;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+
+        #box img{
+            width: 700px;
+            height: 600px;
+            margin-left: 500px;
+            margin-top: 90px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div>Home</div>
+        <div>Cat</div>
+        <div onclick="window.location.href='search.html'">Search</div>
+    </div>
+    <div id="box"></div>
+    
+</body>
+<script>
+    var url=`https://api.thecatapi.com/v1/images/search?limit=10&api_key=live_z54in5MysuRVhpkrcQzMW5qzjk8z4Shsyp1jq1mVIwO8fJtByuLTvRsMXqiym8tZ&breed_ids=beng`
+
+    async function getData(){
+        try{
+            let res = await fetch(url);
+            let data = await res.json();
+            console.log(data)
+            appendProducts(data)
+        }catch(res){
+            console.log("err:",err)
+        }
+    }
+
+    getData()
+
+    function appendProducts(data){
+        data.forEach(function(el){
+            let div = document.createElement("div")
+            
+            div.addEventListener("click", function(){
+                console.log(el)
+               
+                let indcatdata = el;
+                localStorage.setItem("catdata",JSON.stringify(indcatdata));
+                var data = JSON.parse(localStorage.getItem("catdata"))|| []
+                console.log("from localstorage",data.breeds[0].bidability)
+                 window.location.href = "cat.html";
+
+            })
+            let img=document.createElement("img")
+            img.src=el.url;
+
+            div.append(img)
+
+            box.append(div)
+        })
+    }
+</script>
+</html>
